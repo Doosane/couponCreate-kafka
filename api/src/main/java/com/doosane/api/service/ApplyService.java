@@ -10,27 +10,29 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class ApplyService {
+
     private final CouponRepository couponRepository;
 
-  //  private final CouponCountRepository couponCountRepository;
+    private final CouponCountRepository couponCountRepository;
 
-  //  private final CouponCreateProducer couponCreateProducer;
+    private final CouponCreateProducer couponCreateProducer;
 
-    public ApplyService(CouponRepository couponRepository) {
+    public ApplyService(CouponRepository couponRepository, CouponCountRepository couponCountRepository, CouponCreateProducer couponCreateProducer) {
         this.couponRepository = couponRepository;
-       // this.couponCountRepository = couponCountRepository;
-       // this.couponCreateProducer = couponCreateProducer;
+        this.couponCountRepository = couponCountRepository;
+        this.couponCreateProducer = couponCreateProducer;
     }
 
-
+    @Transactional
+    @Modifying
     public void apply(Long userId) {
-        long count = couponRepository.count();
+        long count = couponCountRepository.increment();
 
         if(count > 100) {
             return;
         }
-      couponRepository.save(new Coupon(userId));
-      // couponCreateProducer.create(userId);
+       couponRepository.save(new Coupon(userId));
+//       couponCreateProducer.create(userId);
     }
 
 //    public CouponCreateProducer getCouponCreateProducer() {
