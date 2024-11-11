@@ -30,7 +30,7 @@ public class ApplyService {
         if(count > 100) {
             return;
         }
-       couponRepository.save(new Coupon(userId));
+//       couponRepository.save(new Coupon(userId));
        couponCreateProducer.create(userId);
     }
 
