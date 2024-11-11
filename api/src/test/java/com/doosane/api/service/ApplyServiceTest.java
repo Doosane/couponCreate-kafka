@@ -51,8 +51,6 @@ class ApplyServiceTest {
 
         long count = couponRepository.count();
 
-
-
         assertThat(count).isEqualTo(100);
     }
 

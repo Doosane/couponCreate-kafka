@@ -23,8 +23,7 @@ public class ApplyService {
         this.couponCreateProducer = couponCreateProducer;
     }
 
-    @Transactional
-    @Modifying
+
     public void apply(Long userId) {
         long count = couponCountRepository.increment();
 
@@ -32,10 +31,14 @@ public class ApplyService {
             return;
         }
        couponRepository.save(new Coupon(userId));
-//       couponCreateProducer.create(userId);
+       couponCreateProducer.create(userId);
     }
 
-//    public CouponCreateProducer getCouponCreateProducer() {
-//        return couponCreateProducer;
-//    }
+    public CouponRepository getCouponRepository() {
+        return couponRepository;
+    }
+
+    public CouponCreateProducer getCouponCreateProducer() {
+        return couponCreateProducer;
+    }
 }
